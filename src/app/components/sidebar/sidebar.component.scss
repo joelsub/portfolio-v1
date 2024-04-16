@@ -1,0 +1,36 @@
+
+
+.container{
+    height: 100%;
+    max-width: 200px;
+    .wrap{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 6rem;
+        .menu-items{
+            display: grid;
+            gap: .5rem;
+            font-size: 20px;
+            font-weight: 300;
+            span{
+                cursor: pointer;
+            }
+        }
+        .works{
+            display: grid;
+            gap: 1rem;
+            .work-item span{
+                background-color: rgba($color: #ffffff, $alpha: .15);
+                padding: .3rem .5rem;
+                font-size: 14px;
+                cursor: pointer;
+            }
+        }
+        .social-media{
+            display: flex;
+            gap: 1rem;
+        }
+    }
+}

@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="wrap">
+        <div class="menu-items">
+            <span>Trabajos</span>
+            <span>Sobre mi</span>
+            <span>Blog</span>
+            <span>Contacto</span>
+        </div>
+        <div class="works">
+            <span>Work</span>
+            <div *ngFor="let _ of [].constructor(4); let i = index" class="work-item">
+                <span>Work name</span>
+            </div>
+        </div>
+        <div class="social-media">
+            <div class="work-item">
+                <ng-icon name="bootstrapGithub"/>
+            </div>
+            <div class="work-item">
+                <ng-icon name="bootstrapInstagram"/>
+            </div>
+            <div class="work-item">
+                <ng-icon name="bootstrapTwitterX"/>
+            </div>
+            <div class="work-item">
+                <ng-icon name="bootstrapLinkedin"/>
+            </div>
+        </div>
+    </div>
+</div>
