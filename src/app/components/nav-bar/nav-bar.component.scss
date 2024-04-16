@@ -1,0 +1,26 @@
+.container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 2rem;
+    gap: .5rem;
+    .date{
+        font-size: 14px;
+        font-weight: 300;
+    }
+    .icon{
+        width: fit-content;
+        // height: 16px;
+        background-color: rgba($color: #ffffff, $alpha: .2);
+        border-radius: 50%;
+        display: grid;
+        place-items: center !important;
+        color: #ffffff;
+        padding: .4rem;
+        cursor: pointer;
+        ng-icon{
+            font-size: .8rem;
+        }
+    }
+}
