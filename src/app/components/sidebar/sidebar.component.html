@@ -8,7 +8,10 @@
         </div>
         <div class="works">
             <span>Work</span>
-            <div *ngFor="let _ of [].constructor(4); let i = index" class="work-item">
+            <div    *ngFor="let work of works; let i = index" 
+                    class="work-item" 
+                    (click)="onWorkClick(work.id)"
+                    (mouseenter)="onWorkHover(work.id)">
                 <span>Work name</span>
             </div>
         </div>
