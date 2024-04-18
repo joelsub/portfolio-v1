@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router'; 
+
 import { SidebarComponent } from '../../components/sidebar/sidebar.component'
 import { WindowsContentComponent } from '../../components/windows-content/windows-content.component'
 import { NavBarComponent } from '../../components/nav-bar/nav-bar.component'
@@ -22,8 +24,9 @@ export class HomeComponent {
 
   defaultCover = 'assets/img/cover-default.webp';
   currentCover = this.defaultCover; 
+  currentProjectRoute: string = '';
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   setCover(cover: string) {
     if (this.currentCover !== cover) {
@@ -40,27 +43,34 @@ export class HomeComponent {
   }
 
 
-  handleProjectClick() {
-    gsap.to('.projects-window', {
-      duration: 1,
-      scaleX: 1,
-      scaleY: 1,
+  handleProjectClick(route: string) {
+
+    this.currentProjectRoute = route;
+    let tl = gsap.timeline();
+
+    tl.to('.projects-window', {
+      duration: .8,
+      width: '100%',
+      height: '100vh',
+      top: 0,
+      left: 0,
       ease: 'power2.inOut',
-      onComplete: () => {
-        gsap.to('.projects-window', {
-          duration: 0.5,
-          y: '100vh',
-          ease: 'power2.inOut',
-          onComplete: () => {
-            this.loadProjectContent(); // Carga el contenido del proyecto
-          }
-        });
-      }
+      
+    });
+
+    // tl.pause(.3);  // Pausa la animación por 2 segundos
+
+    tl.to('.projects-window', {
+      duration: .8,
+      y: '300px', 
+      ease: 'power2.inOut',
+      onComplete: () => this.loadProjectContent()
     });
   }
 
+
   loadProjectContent() {
     console.log("Cargando contenido del proyecto...");
-    // Implementa la carga del contenido del proyecto aquí
+    this.router.navigate([this.currentProjectRoute]);
   }
 }

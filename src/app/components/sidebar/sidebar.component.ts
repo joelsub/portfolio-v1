@@ -16,19 +16,17 @@ export class SidebarComponent {
   constructor() { }
 
   @Output() hoverProject = new EventEmitter<string>();
-  @Output() projectClicked = new EventEmitter<void>();
+  @Output() projectClicked = new EventEmitter<string>();
   
   public projectId: string = '#';
 
   works = [
     {
-      // id: 'xrunner',
       name: 'xrunner', 
       router: '/xrunner',
       cover: 'assets/img/projects/xrunner/cover.jpeg'
     },
     {
-      // id: 'test',
       name: 'ejemplo', 
       router: '/project-test',
       cover: 'assets/img/projects/test/cover.jpeg'
@@ -43,7 +41,7 @@ export class SidebarComponent {
     this.hoverProject.emit('');
   }
 
-  onClickProject() {
-    this.projectClicked.emit();
+  onClickProject(routerLink: string) {
+    this.projectClicked.emit(routerLink); 
   }
 }

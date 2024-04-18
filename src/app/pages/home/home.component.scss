@@ -23,29 +23,28 @@ app-nav-bar{
             display: flex;
             justify-content: flex-end;
             gap: 2rem;
+            // .projects-window {
+            //     width: 100%;
+            //     max-width: 500px;
+            //     height: 100%;
+            //     background-size: cover;
+            //     background-position: center;
+            //     transition: background-image 0.2s ease-in-out; 
+            //     opacity: 1; 
+            //     // position: absolute;
+            //   }
+
             .projects-window {
-                width: 100%;
-                max-width: 500px;
-                height: 100%;
+                position: absolute;  
+                width: 500px;      
+                height: 100vh; 
+                top: 0;
+                left: 35%;
                 background-size: cover;
                 background-position: center;
                 transition: background-image 0.2s ease-in-out; 
-                opacity: 1; 
-                // position: absolute;
+                z-index: 10;
               }
-
-            //   .projects-window {
-            //     width: 100%;  // Asegura anchura inicial adecuada
-            //     max-width: none;  // Remueve restricciones de max-width
-            //     height: 100vh;  // Altura inicial que cubra toda la ventana visible
-            //     position: fixed;  // Posición fija para asegurar que cubra toda la pantalla
-            //     top: 0;
-            //     left: 0;
-            //     background-size: cover;
-            //     background-position: center;
-            //     transition: background-image 0.5s ease-in-out;  // Transición suave para el cambio de imagen
-            //     z-index: 10;  // Asegura que esté por encima de otros elementos
-            //   }
 
             #profile-content{
                 max-width: 600px;

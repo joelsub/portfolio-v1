@@ -25,15 +25,12 @@
                 li{
                     width: fit-content;
                     list-style: none;
-                    
-                    // margin: .3rem 0;
                     padding: .8rem 0 !important;
                     cursor: pointer;
                     span{
                         height: 100%;
                         padding: .5rem .5rem !important;
                         background-color: rgba($color: #ffffff, $alpha: .15);
-                        // padding: 10px 0 !important;
                         font-size: 14px;
                         transition: .3s ease;
                         border: 1px solid transparent;
