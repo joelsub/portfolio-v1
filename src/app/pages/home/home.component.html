@@ -8,7 +8,7 @@
 
 
        <div class="wrap-container">
-            <div class="projects-window" [ngStyle]="{'background-image': 'url(' + (currentCover ? currentCover : defaultCover) + ')'}"> </div>
+            <div #windowsProjects class="projects-window" [ngStyle]="{'background-image': 'url(' + (currentCover ? currentCover : defaultCover) + ')'}"> </div>
         
             <div #profileElement id="profile-content">
                 <section id="profile">
@@ -20,17 +20,15 @@
                     <p id="prifle-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta quas nesciunt dolore necessitatibus est iure quis repellendus possimus, sequi neque tempore sit, dolores molestiae voluptatum tempora esse reprehenderit, modi officia.</p>
                 </section>
 
-                <section id="experience-container">
-                    <div *ngFor="let _ of [].constructor(3); let i = index" class="experience-item">
-                        <span class="item-date">2020 - 2024</span>
+                <section *ngFor="let experience of experiences" id="experience-container">
+                    <span class="item-date">{{experience.date}}</span>
                         <div class="item-role">
-                            <span class="role-title">Role - Company</span>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis explicabo itaque praesentium sunt harum voluptatem aut temporibus mollitia blanditiis? Quaerat odio ipsum beatae fugit repudiandae, minima obcaecati similique est culpa.</p>
+                            <span class="role-title">{{experience.role}}</span>
+                            <p>{{experience.detail}}</p>
                             <div class="role-tags">
-                                <span *ngFor="let _ of [].constructor(3); let i = index" class="tag">React</span>
+                                <span *ngFor="let tag of experience.tags" class="tag">{{tag}}</span>
                             </div>
                         </div>
-                    </div>
                 </section>
 
                 <div class="scrolling">
@@ -39,6 +37,10 @@
                     <div id="scroll-line"></div>
                 </div>
 
+            </div>
+
+            <div #projectContainer class="selected-project" >
+                <!-- aca se debe cargar el proyecto seleccionado  -->
             </div>
        </div>
     </div>

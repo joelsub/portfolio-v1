@@ -1,0 +1,28 @@
+<div class="wrap">
+
+<div class="container" #container>
+    <div class="title">
+        <button (click)="onBackClick()">
+            <ng-icon name="bootstrapArrowLeft"/>
+            Volver Atrás
+        </button>
+        <span class="project-title">{{ projectName }}</span>
+    </div>
+    <div class="project-info">
+        <div class="info-box">
+            <span>Project Type</span>
+            <span>{{ projectType }}</span>
+        </div>
+        <div class="info-box">
+            <span>Stage</span>
+            <span>{{ stage }}</span>
+        </div>
+        <div class="info-box">
+            <span>Deliverables</span>
+            <span>{{ deliverables }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="cover" [ngStyle]="{'background-image': 'url(' + coverUrl + ')'}"></div>
+</div>

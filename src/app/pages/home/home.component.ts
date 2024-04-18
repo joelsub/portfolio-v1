@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router'; 
 
@@ -22,6 +22,27 @@ import { gsap } from 'gsap';
 })
 export class HomeComponent {
 
+   public experiences = [
+    {
+      date: '2019 - 2020',
+      role: 'Designer - Epress',
+      detail: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis explicabo itaque praesentium sunt harum voluptatem aut temporibus mollitia blanditiis? Quaerat odio ipsum beatae fugit repudiandae, minima obcaecati',
+      tags: ['one', 'two', 'three'],
+    },
+    {
+      date: '2020 - 2021',
+      role: 'Designer - FrontEnd',
+      detail: 'Lorem ipsum dolor sit amet consectetur ti',
+      tags: ['Angular', 'figma'],
+    },
+    {
+      date: '2021 - Presente',
+      role: 'Designer - FrontEnd engenieer',
+      detail: 'Lorem ipsum dolor sit amet consectetur ti',
+      tags: ['Angular', 'figma'],
+    },
+  ]
+
   defaultCover = 'assets/img/cover-default.webp';
   currentCover = this.defaultCover; 
   currentProjectRoute: string = '';
@@ -30,11 +51,45 @@ export class HomeComponent {
 
   @ViewChild('sidebarElement') sidebarElement!: ElementRef;
   @ViewChild('profileElement') profileElement!: ElementRef;
+  @ViewChild('windowsProjects') windowsProjects!: ElementRef;
 
   constructor(private router: Router) {}
 
+  ngAfterViewInit() {
+    this.animateElementsIntoPosition();
+  }
+
+  animateElementsIntoPosition() {
+    // Asegúrate de que los elementos existen
+    if (this.sidebarElement && this.profileElement) {
+      // Animar el sidebar desde la izquierda
+      gsap.from(this.sidebarElement.nativeElement, {
+        x: '-100%', // Comienza fuera de la pantalla a la izquierda
+        duration: 1,
+        opacity: 0,
+        ease: 'power3.out'
+      });
+
+      // Animar el profile-content desde la derecha
+      gsap.from(this.profileElement.nativeElement, {
+        x: '100%', // Comienza fuera de la pantalla a la derecha
+        duration: 1,
+        opacity: 0,
+        ease: 'power3.out'
+      });
+
+      // Animar el windows
+      gsap.from(this.windowsProjects.nativeElement, {
+        duration: 1,
+        opacity: 0,
+        ease: 'power3.out'
+      });
+    }
+  }
+
+
   setCover(cover: string) {
-    if (!this.projectClicked) {  // Solo cambia el cover si no se ha clickeado un proyecto
+    if (!this.projectClicked) { 
       this.currentCover = cover;
     }
   }
@@ -64,7 +119,7 @@ export class HomeComponent {
         x: '100%',  // Mueve el profile-content hacia la derecha
         opacity: 0,
         ease: 'power2.inOut',
-      }, '<');  // Esto asegura que las animaciones se ejecuten simultáneamente
+      }, '<');  // asegura que las animaciones se ejecuten simultáneamente
 
     this.currentProjectRoute = route;
     let tl = gsap.timeline();

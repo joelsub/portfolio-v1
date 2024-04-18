@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ProjectsModule } from '../projects.module';
 
 @Component({
   selector: 'app-xrunner',
-  standalone: true,
-  imports: [],
   templateUrl: './xrunner.component.html',
   styleUrl: './xrunner.component.scss'
 })
 export class XrunnerComponent {
+  constructor() { }
+
+  ngOnInit(): void {
+    // Inicialización del componente si es necesaria
+  }
 
 }
