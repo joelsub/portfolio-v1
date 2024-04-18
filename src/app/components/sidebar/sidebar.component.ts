@@ -1,36 +1,49 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { bootstrapGithub, bootstrapInstagram, bootstrapLinkedin, bootstrapTwitterX } from '@ng-icons/bootstrap-icons';
-import { gsap } from 'gsap';
-
-import { ProjectAnimationService } from '../../services/project-animation.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, NgIconComponent],
+  imports: [CommonModule, NgIconComponent, RouterModule],
   providers: [provideIcons({ bootstrapGithub, bootstrapInstagram, bootstrapLinkedin, bootstrapTwitterX })],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
-  constructor(private animationService: ProjectAnimationService) { }
+  constructor() { }
+
+  @Output() hoverProject = new EventEmitter<string>();
+  @Output() projectClicked = new EventEmitter<void>();
+  
   public projectId: string = '#';
 
   works = [
-    { id: 'work1', name: 'Proyecto 1', color: 'red' },
-    { id: 'work2', name: 'Proyecto 2', color: 'blue' },
+    {
+      // id: 'xrunner',
+      name: 'xrunner', 
+      router: '/xrunner',
+      cover: 'assets/img/projects/xrunner/cover.jpeg'
+    },
+    {
+      // id: 'test',
+      name: 'ejemplo', 
+      router: '/project-test',
+      cover: 'assets/img/projects/test/cover.jpeg'
+    }
   ];
 
-  onWorkClick(projectId: string): void {
-    this.animationService.triggerAnimation(projectId);
+  onMouseEnter(coverUrl: string) {
+    this.hoverProject.emit(coverUrl);
+  }
+  
+  onMouseLeave() {
+    this.hoverProject.emit('');
   }
 
-  onWorkHover(workId: string): void {
-    const work = this.works.find(w => w.id === workId);
-    if (work) {
-      this.animationService.hoverProject(work.color);
-    }
+  onClickProject() {
+    this.projectClicked.emit();
   }
 }

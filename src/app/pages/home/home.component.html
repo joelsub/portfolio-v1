@@ -2,11 +2,15 @@
 <div class="layout">
     
     <div class="container">
-        <app-sidebar></app-sidebar>
+        <app-sidebar (hoverProject)="setCover($event)" (projectClicked)="handleProjectClick()"></app-sidebar>
+
 
        <div class="wrap-container">
         
-        <app-windows-content></app-windows-content>
+        <div class="projects-window" 
+     [ngStyle]="{'background-image': 'url(' + (currentCover ? currentCover : defaultCover) + ')'}">
+</div>
+        
         <div id="profile-content">
             <section id="profile">
                 <div id="profile-data">

@@ -8,12 +8,16 @@
         </div>
         <div class="works">
             <span>Work</span>
-            <div    *ngFor="let work of works; let i = index" 
-                    class="work-item" 
-                    (click)="onWorkClick(work.id)"
-                    (mouseenter)="onWorkHover(work.id)">
-                <span>Work name</span>
-            </div>
+            <ul>
+                <li *ngFor="let work of works; let i = index" 
+               
+                    (mouseenter)="onMouseEnter(work.cover)" 
+                    (mouseleave)="onMouseLeave()"
+                    (click)="onClickProject()">
+                    <span>{{ work.name }}</span>
+                </li>
+            </ul>
+
         </div>
         <div class="social-media">
             <div class="work-item">

@@ -46,15 +46,26 @@ export class WindowsContentComponent implements AfterViewInit, OnDestroy {
 
   private animateWindowContent(projectId: string) {
     // tamaño y posición iniciales definidos
-    gsap.set(this.windowsContent.nativeElement, {width: 'inicial', height: 'inicial', top: 'inicial', left: 'inicial'});
+    gsap.set(this.windowsContent.nativeElement, {
+      width: 'inicial',
+      height: 'inicial',
+      top: 'inicial',
+      left: 'inicial'
+    });
+
+  
     // línea de tiempo
-    const tl = gsap.timeline({onComplete: () => this.showProjectContent(projectId)});
+    const tl = gsap.timeline({
+      // defaults: { ease: "power2.inOut" },
+      onComplete: () => this.showProjectContent(projectId)
+    });
+
     // 1: Expandir para cubrir
-    tl.to(this.windowsContent.nativeElement, { duration: .5, width: '100%', height: '100vh', top: 0, left: 0 });
+    tl.to(this.windowsContent.nativeElement, { duration: .8, width: '100%', height: '100vh', top: 0, left: 0, ease: "power2.in" });
     // pausa
     tl.to(this.windowsContent.nativeElement, {duration: 0.3}, "+=0.3");
     // 2: Deslizar hacia abajo
-    tl.to(this.windowsContent.nativeElement, { duration: 0.5, y: '300px' });
+    tl.to(this.windowsContent.nativeElement, { duration: 1, y: '300px', ease: "power2.out" });
   }
   
   private showProjectContent(projectId: string) {
