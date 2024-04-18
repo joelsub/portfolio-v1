@@ -2,45 +2,44 @@
 <div class="layout">
     
     <div class="container">
-        <app-sidebar (hoverProject)="setCover($event)" (projectClicked)="handleProjectClick($event)"></app-sidebar>
+        <div class="sidebar" #sidebarElement>
+            <app-sidebar (hoverProject)="setCover($event)" (projectClicked)="handleProjectClick($event)"></app-sidebar>
+        </div>
 
 
        <div class="wrap-container">
+            <div class="projects-window" [ngStyle]="{'background-image': 'url(' + (currentCover ? currentCover : defaultCover) + ')'}"> </div>
         
-        <div class="projects-window" 
-     [ngStyle]="{'background-image': 'url(' + (currentCover ? currentCover : defaultCover) + ')'}">
-</div>
-        
-        <div id="profile-content">
-            <section id="profile">
-                <div id="profile-data">
-                    <span>Joel Subiabre</span>
-                    <span>Product Designer - Front-end Developer</span>
-                </div>
+            <div #profileElement id="profile-content">
+                <section id="profile">
+                    <div id="profile-data">
+                        <span>Joel Subiabre</span>
+                        <span>Product Designer - Front-end Developer</span>
+                    </div>
 
-                <p id="prifle-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta quas nesciunt dolore necessitatibus est iure quis repellendus possimus, sequi neque tempore sit, dolores molestiae voluptatum tempora esse reprehenderit, modi officia.</p>
-            </section>
+                    <p id="prifle-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta quas nesciunt dolore necessitatibus est iure quis repellendus possimus, sequi neque tempore sit, dolores molestiae voluptatum tempora esse reprehenderit, modi officia.</p>
+                </section>
 
-            <section id="experience-container">
-                <div *ngFor="let _ of [].constructor(3); let i = index" class="experience-item">
-                    <span class="item-date">2020 - 2024</span>
-                    <div class="item-role">
-                        <span class="role-title">Role - Company</span>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis explicabo itaque praesentium sunt harum voluptatem aut temporibus mollitia blanditiis? Quaerat odio ipsum beatae fugit repudiandae, minima obcaecati similique est culpa.</p>
-                        <div class="role-tags">
-                            <span *ngFor="let _ of [].constructor(3); let i = index" class="tag">React</span>
+                <section id="experience-container">
+                    <div *ngFor="let _ of [].constructor(3); let i = index" class="experience-item">
+                        <span class="item-date">2020 - 2024</span>
+                        <div class="item-role">
+                            <span class="role-title">Role - Company</span>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis explicabo itaque praesentium sunt harum voluptatem aut temporibus mollitia blanditiis? Quaerat odio ipsum beatae fugit repudiandae, minima obcaecati similique est culpa.</p>
+                            <div class="role-tags">
+                                <span *ngFor="let _ of [].constructor(3); let i = index" class="tag">React</span>
+                            </div>
                         </div>
                     </div>
+                </section>
+
+                <div class="scrolling">
+                    <ng-icon name="bootstrapArrowDownCircle"/>
+                    <span>Continue scrolling</span>
+                    <div id="scroll-line"></div>
                 </div>
-            </section>
 
-            <div class="scrolling">
-                <ng-icon name="bootstrapArrowDownCircle"/>
-                <span>Continue scrolling</span>
-                <div id="scroll-line"></div>
             </div>
-
-        </div>
        </div>
     </div>
 </div>

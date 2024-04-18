@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router'; 
 
@@ -25,12 +25,17 @@ export class HomeComponent {
   defaultCover = 'assets/img/cover-default.webp';
   currentCover = this.defaultCover; 
   currentProjectRoute: string = '';
+  projectClicked = false; 
+  
+
+  @ViewChild('sidebarElement') sidebarElement!: ElementRef;
+  @ViewChild('profileElement') profileElement!: ElementRef;
 
   constructor(private router: Router) {}
 
   setCover(cover: string) {
-    if (this.currentCover !== cover) {
-      this.currentCover = cover; 
+    if (!this.projectClicked) {  // Solo cambia el cover si no se ha clickeado un proyecto
+      this.currentCover = cover;
     }
   }
 
@@ -45,8 +50,26 @@ export class HomeComponent {
 
   handleProjectClick(route: string) {
 
+    this.projectClicked = true;
+    
+    gsap.timeline()
+      .to(this.sidebarElement.nativeElement, {
+        duration: 0.5,
+        x: '-300px',  // Mueve el sidebar hacia la izquierda
+        opacity: 0,
+        ease: 'power2.inOut'
+      })
+      .to(this.profileElement.nativeElement, {
+        duration: 0.5,
+        x: '100%',  // Mueve el profile-content hacia la derecha
+        opacity: 0,
+        ease: 'power2.inOut',
+      }, '<');  // Esto asegura que las animaciones se ejecuten simultáneamente
+
     this.currentProjectRoute = route;
     let tl = gsap.timeline();
+
+    gsap.timeline()
 
     tl.to('.projects-window', {
       duration: .8,

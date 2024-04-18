@@ -37,8 +37,8 @@ app-nav-bar{
             .projects-window {
                 position: absolute;  
                 width: 500px;      
-                height: 100vh; 
-                top: 0;
+                height: 80%; 
+                top:10%;
                 left: 35%;
                 background-size: cover;
                 background-position: center;
@@ -128,5 +128,6 @@ app-nav-bar{
 }
 
 app-sidebar{
-    z-index:100;
+    // z-index:100;
+    position: relative;
 }

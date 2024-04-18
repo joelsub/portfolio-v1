@@ -24,12 +24,12 @@ export class SidebarComponent {
     {
       name: 'xrunner', 
       router: '/xrunner',
-      cover: 'assets/img/projects/xrunner/cover.jpeg'
+      cover: 'assets/img/projects/xrunner/xrunner-cover.jpeg'
     },
     {
       name: 'ejemplo', 
       router: '/project-test',
-      cover: 'assets/img/projects/test/cover.jpeg'
+      cover: 'assets/img/projects/test/test-cover.jpeg'
     }
   ];
 
