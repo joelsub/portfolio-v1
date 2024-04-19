@@ -1,4 +1,4 @@
-<app-nav-bar></app-nav-bar>
+<app-nav-bar #navbarElement></app-nav-bar>
 <div class="layout">
     
     <div class="container">
@@ -8,7 +8,7 @@
 
 
        <div class="wrap-container">
-            <div #windowsProjects class="projects-window" [ngStyle]="{'background-image': 'url(' + (currentCover ? currentCover : defaultCover) + ')'}"> </div>
+            <div #windowsProjects class="projects-window"> </div>
         
             <div #profileElement id="profile-content">
                 <section id="profile">
@@ -39,9 +39,11 @@
 
             </div>
 
-            <div #projectContainer class="selected-project" >
-                <!-- aca se debe cargar el proyecto seleccionado  -->
-            </div>
+            
+            <div #projectContainer *ngIf="activeProject" class="selected-project" >
+                <app-xrunner *ngIf="activeProject === 'xrunner'"></app-xrunner>
+                <app-project-test *ngIf="activeProject === 'ejemplo'"></app-project-test>
+              </div>
        </div>
     </div>
 </div>

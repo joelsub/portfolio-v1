@@ -17,6 +17,10 @@ import { NgIconComponent } from '@ng-icons/core';
   imports: [
     CommonModule,
     NgIconComponent
+  ],
+  exports: [
+    XrunnerComponent,
+    ProjectTestComponent,
   ]
 })
 export class ProjectsModule { }

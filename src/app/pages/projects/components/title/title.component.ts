@@ -3,6 +3,8 @@ import { provideIcons } from '@ng-icons/core';
 import { bootstrapArrowLeftShort } from '@ng-icons/bootstrap-icons';
 import { Router } from '@angular/router';
 
+import { ProjectDisplayService } from '../../../../services/project-display.service';
+
 
 import { gsap } from 'gsap';
 
@@ -24,30 +26,26 @@ export class TitleComponent implements AfterViewInit {
   @Input() deliverables!: string;
   @Input() coverUrl!: string;
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router, 
+    private projectDisplayService: ProjectDisplayService
+  ) { }
 
   ngAfterViewInit() {
-    this.animateContainer();
-  }
-
-  animateContainer() {
-    gsap.from(this.container.nativeElement, {
-      y: 500,
-      duration: .5,
-      zIndex: 0,
-      ease: 'power3.out',
-    });
   }
 
   onBackClick() {
     let tl = gsap.timeline();
     gsap.timeline()
 
+
     tl.to('.cover', {
       duration: .8,
       y: '0', 
       ease: 'power2.inOut',
+      zIndex: '11',
       onComplete: () => {
+        this.projectDisplayService.resetHomeAnimations();
       } 
     });
 
@@ -55,6 +53,8 @@ export class TitleComponent implements AfterViewInit {
       duration: .1,
       opacity: 0,
       ease: 'power2.inOut',
+      onComplete: () => {
+      } 
     });
 
     tl.to('.cover', {
@@ -64,20 +64,25 @@ export class TitleComponent implements AfterViewInit {
       position: 'absolute',
       left: 200,
       ease: 'power2.inOut',
+      onComplete: () => {
+        this.fadeAnimation()
+        // this.projectDisplayService.deactivateProject();
+        // this.projectDisplayService.resetHomeAnimations();
+      } 
     });
+  }
 
+  fadeAnimation(){
+    let tl = gsap.timeline();
+    gsap.timeline()
     tl.to('.cover', {
       duration: .3,
       opacity: 0,
       ease: 'power2.inOut',
       onComplete: () => {
-        this.router.navigateByUrl('/');
+        this.projectDisplayService.deactivateProject();
+        // this.projectDisplayService.resetHomeAnimations();
       } 
     });
-
-
-
-    
-
   }
 }

@@ -10,12 +10,19 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { bootstrapArrowDownCircle } from '@ng-icons/bootstrap-icons';
 
 import { gsap } from 'gsap';
+import { XrunnerComponent } from '../projects/xrunner/xrunner.component';
+import { ProjectTestComponent } from '../projects/project-test/project-test.component';
+import { ProjectsModule } from '../projects/projects.module';
+import { ProjectsComponent } from '../projects/projects.component';
+
+import { ProjectDisplayService } from '../../services/project-display.service';
+import { ProjectAnimationService } from '../../services/project-animation.service';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, SidebarComponent, WindowsContentComponent, NavBarComponent, NgIconComponent],
+  imports: [CommonModule, SidebarComponent, WindowsContentComponent, NavBarComponent, NgIconComponent, ProjectsModule],
   providers: [provideIcons({ bootstrapArrowDownCircle })],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -47,45 +54,76 @@ export class HomeComponent {
   currentCover = this.defaultCover; 
   currentProjectRoute: string = '';
   projectClicked = false; 
+
+  activeProject: string | null = null; 
+
   
 
+  @ViewChild('navbarElement') navbarElement!: ElementRef;
   @ViewChild('sidebarElement') sidebarElement!: ElementRef;
   @ViewChild('profileElement') profileElement!: ElementRef;
   @ViewChild('windowsProjects') windowsProjects!: ElementRef;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router, 
+    private projectDisplayService: ProjectDisplayService,
+    private animationService: ProjectAnimationService
+
+  ) {}
 
   ngAfterViewInit() {
-    this.animateElementsIntoPosition();
+    this.animationService.projectHover$.subscribe((coverUrl: string | null) => {
+      if (!this.projectClicked) {
+        this.changeBackgroundImage(coverUrl || this.defaultCover);
+      }
+    });
+
+    this.projectDisplayService.activeProject.subscribe(projectName => {
+      if (projectName) {
+        this.activeProject = projectName;
+        this.projectClicked = true; 
+        this.changeBackgroundImage(`url(${this.findCoverByProjectName(projectName)})`);
+      } else {
+        this.activeProject = null;
+        this.projectClicked = false;
+        this.changeBackgroundImage(this.defaultCover); 
+      }
+    });
+
+    this.projectDisplayService.onResetAnimations.subscribe(reset => {
+      if (reset) {
+        this.resetAnimations();
+        this.projectDisplayService.resetAnimationsSubject.next(false);
+      }
+    });
   }
 
-  animateElementsIntoPosition() {
-    // Asegúrate de que los elementos existen
-    if (this.sidebarElement && this.profileElement) {
-      // Animar el sidebar desde la izquierda
-      gsap.from(this.sidebarElement.nativeElement, {
-        x: '-100%', // Comienza fuera de la pantalla a la izquierda
-        duration: 1,
-        opacity: 0,
-        ease: 'power3.out'
-      });
-
-      // Animar el profile-content desde la derecha
-      gsap.from(this.profileElement.nativeElement, {
-        x: '100%', // Comienza fuera de la pantalla a la derecha
-        duration: 1,
-        opacity: 0,
-        ease: 'power3.out'
-      });
-
-      // Animar el windows
-      gsap.from(this.windowsProjects.nativeElement, {
-        duration: 1,
-        opacity: 0,
-        ease: 'power3.out'
-      });
+  public works = [
+    {
+      name: 'xrunner',
+      cover: 'assets/img/projects/xrunner/xrunner-cover.jpeg'
+    },
+    {
+      name: 'ejemplo',
+      cover: 'assets/img/projects/test/test-cover.jpeg'
     }
+  ];
+
+  findCoverByProjectName(projectName: string): string {
+    const project = this.works.find(p => p.name === projectName);
+    return project ? project.cover : this.defaultCover;
   }
+
+  
+  
+  changeBackgroundImage(coverUrl: string) {
+    // GSAP cambia el fondo 
+    gsap.to(this.windowsProjects.nativeElement, {
+      duration: 0.5, 
+      ease: 'power2.inOut',
+      backgroundImage: `url(${coverUrl})`
+    });
+}
 
 
   setCover(cover: string) {
@@ -103,29 +141,12 @@ export class HomeComponent {
   }
 
 
-  handleProjectClick(route: string) {
+  handleProjectClick(projectName: string) {
 
     this.projectClicked = true;
-    
-    gsap.timeline()
-      .to(this.sidebarElement.nativeElement, {
-        duration: 0.5,
-        x: '-300px',  // Mueve el sidebar hacia la izquierda
-        opacity: 0,
-        ease: 'power2.inOut'
-      })
-      .to(this.profileElement.nativeElement, {
-        duration: 0.5,
-        x: '100%',  // Mueve el profile-content hacia la derecha
-        opacity: 0,
-        ease: 'power2.inOut',
-      }, '<');  // asegura que las animaciones se ejecuten simultáneamente
-
-    this.currentProjectRoute = route;
     let tl = gsap.timeline();
 
     gsap.timeline()
-
     tl.to('.projects-window', {
       duration: .8,
       width: '100%',
@@ -133,22 +154,68 @@ export class HomeComponent {
       top: 0,
       left: 0,
       ease: 'power2.inOut',
-      
+      onComplete: () => {
+        // this.activeProject = projectName;
+        this.projectDisplayService.activateProject(projectName);
+      }
     });
 
-    // tl.pause(.3);  // Pausa la animación por 2 segundos
+    tl.to(this.sidebarElement.nativeElement, {
+      duration: .1,
+      display: 'none',
+      ease: 'power2.inOut',
+    });
+    tl.to(this.profileElement.nativeElement, {
+      duration: .1,
+      display: 'none',
+      ease: 'power2.inOut',
+    });
 
     tl.to('.projects-window', {
       duration: .8,
       y: '300px', 
       ease: 'power2.inOut',
-      onComplete: () => this.loadProjectContent()
+    });
+
+    tl.to('.projects-window', {
+      duration: .1,
+      display: 'none', 
     });
   }
 
 
-  loadProjectContent() {
-    console.log("Cargando contenido del proyecto...");
-    this.router.navigate([this.currentProjectRoute]);
+  loadProjectContent(projectName: string) {
+    this.activeProject = projectName;
   }
+
+
+  resetAnimations() {
+    gsap.killTweensOf([
+      this.sidebarElement.nativeElement,
+      this.navbarElement.nativeElement,
+      this.profileElement.nativeElement,
+      this.windowsProjects.nativeElement,
+    ]);
+  
+    // Restablece las propiedades de los elementos a los valores iniciales
+    gsap.set(this.sidebarElement.nativeElement, { x: '0%', opacity: 1, clearProps: "all" });
+    gsap.set(this.navbarElement.nativeElement, { y: '0%', opacity: 1, clearProps: "all" });
+    gsap.set(this.profileElement.nativeElement, { x: '0%', opacity: 1, clearProps: "all" });
+    
+    
+    // Asegúrate de resetear también las propiedades de .projects-window a su estado original
+    gsap.set(this.windowsProjects.nativeElement, {
+      width: '500px', // Estos valores deben ser los iniciales que tiene .projects-window
+      height: '80%',
+      top: '10%',
+      left: '200px',
+      opacity: 1,
+      clearProps: "all"
+    });
+
+    this.windowsProjects.nativeElement.style.backgroundImage = `url(${this.defaultCover})`;
+
+  
+  }
+  
 }
