@@ -118,7 +118,7 @@ app-nav-bar{
     #scroll-line{
         width: 100px;
         height: 1px;
-        background-color: #ffffff !important;
+        background-color: var(--text-color) !important;
         transform: translateY(2px);
     }
 }

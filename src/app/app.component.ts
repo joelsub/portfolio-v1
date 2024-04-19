@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, HostListener } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { DarkModeService } from './services/dark-mode.service';
@@ -21,4 +21,23 @@ export class AppComponent {
   }
 
   constructor(public darkModeService: DarkModeService) {}
+
+  cursorPos = { x: 0, y: 0 };
+  isHovering = false;
+
+  @HostListener('document:mousemove', ['$event'])
+  onMouseMove(event: MouseEvent) {
+    this.cursorPos.x = event.clientX;
+    this.cursorPos.y = event.clientY;
+  }
+
+  @HostListener('document:mouseover', ['$event'])
+  onMouseOver(event: MouseEvent) {
+    this.isHovering = (event.target as Element).classList.contains('hover-target');
+  }
+  
+  @HostListener('document:mouseout', ['$event'])
+  onMouseOut(event: MouseEvent) {
+    this.isHovering = false;
+  }
 }

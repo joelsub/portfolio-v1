@@ -1,3 +1,9 @@
+<div [ngStyle]="{'left': cursorPos.x + 'px', 'top': cursorPos.y + 'px'}"
+     class="cursor-circle"
+     [class.hover-effect]="isHovering">
+</div>
+
+
 <div [ngClass]="{'dark-mode': darkModeService.isDarkMode}">
     <router-outlet></router-outlet>
 </div>
