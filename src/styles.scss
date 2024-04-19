@@ -24,15 +24,15 @@ body.dark-mode {
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background-color: var(--text-color);  // Color visible para pruebas
+  background-color: var(--text-color);
   transform: translate(-50%, -50%);
   // transition: all 0.1s ease;
   z-index: 9999;
-}s
+}
 
 .hover-effect {
-  transform: scale(1.5); // Hace el cursor más grande al hacer hover
-  border-color: blue; // Cambia el color del borde en hover
+  transform: scale(1.5);
+  border-color: blue;
 }
 
 .main-font {
