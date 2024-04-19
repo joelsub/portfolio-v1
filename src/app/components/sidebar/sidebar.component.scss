@@ -1,4 +1,5 @@
 
+@import '../../../styles.scss';
 
 .container{
     height: 100%;
@@ -30,14 +31,14 @@
                     span{
                         height: 100%;
                         padding: .5rem .5rem !important;
-                        background-color: rgba($color: #ffffff, $alpha: .15);
+                        background-color: var(--background-alpha);
                         font-size: 14px;
                         transition: .3s ease;
                         border: 1px solid transparent;
                     }
                     &:hover{
                         span{
-                            border: 1px solid #ffffff;
+                            border: 1px solid var(--text-color);
                             background-color: transparent;
                         }
                     }

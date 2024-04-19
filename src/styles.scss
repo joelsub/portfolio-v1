@@ -1,3 +1,16 @@
+:root {
+  --background-color: #ffffff;
+  --text-color: #000000; 
+  --background-alpha: #00000025;
+}
+
+body.dark-mode {
+  --background-color: #000000;
+  --text-color: #ffffff;
+  --background-alpha: #ffffff25
+}
+
+
 *{
     margin: 0;
     padding: 0;
@@ -15,16 +28,17 @@
   }
 
 body{
-    background-color: #000000;
-    color: #ffffff;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: .3s;
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
-    font-variation-settings:
-      "slnt" 0;
+    font-variation-settings: "slnt" 0;
       // overflow: hidden;
 }
+
 
 
 /* Hide scrollbar for Chrome, Safari and Opera */

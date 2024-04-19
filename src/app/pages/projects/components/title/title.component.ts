@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, ElementRef, ViewChild, Input } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
-import { bootstrapArrowLeft } from '@ng-icons/bootstrap-icons';
+import { bootstrapArrowLeftShort } from '@ng-icons/bootstrap-icons';
 import { Router } from '@angular/router';
 
 
@@ -12,11 +12,11 @@ import { gsap } from 'gsap';
   templateUrl: './title.component.html',
   styleUrl: './title.component.scss',
   providers: [
-    provideIcons({ bootstrapArrowLeft })
+    provideIcons({ bootstrapArrowLeftShort })
   ]
 })
 export class TitleComponent implements AfterViewInit {
-  @ViewChild('container') container!: ElementRef; // Usa ViewChild para acceder al DOM
+  @ViewChild('container') container!: ElementRef;
 
   @Input() projectName!: string;
   @Input() projectType!: string;
@@ -31,13 +31,11 @@ export class TitleComponent implements AfterViewInit {
   }
 
   animateContainer() {
-    // GSAP animación desde abajo hacia la posición actual
     gsap.from(this.container.nativeElement, {
-      y: 500, // Empieza 500px abajo desde la posición actual
+      y: 500,
       duration: .5,
       zIndex: 0,
       ease: 'power3.out',
-      // El valor de 'y' aquí es un ejemplo, ajústalo según la distancia que desees
     });
   }
 
@@ -50,7 +48,6 @@ export class TitleComponent implements AfterViewInit {
       y: '0', 
       ease: 'power2.inOut',
       onComplete: () => {
-        // this.router.navigateByUrl('/');
       } 
     });
 

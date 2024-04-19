@@ -10,7 +10,6 @@ export class XrunnerComponent {
   constructor() { }
 
   ngOnInit(): void {
-    // Inicialización del componente si es necesaria
   }
 
 }

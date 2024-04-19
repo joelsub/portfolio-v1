@@ -2,10 +2,10 @@
 
 <div class="container" #container>
     <div class="title">
-        <button (click)="onBackClick()">
-            <ng-icon name="bootstrapArrowLeft"/>
-            Volver Atrás
-        </button>
+        <div class="backBtn" (click)="onBackClick()">
+            <ng-icon name="bootstrapArrowLeftShort"/>
+            Volver a inicio
+        </div>
         <span class="project-title">{{ projectName }}</span>
     </div>
     <div class="project-info">

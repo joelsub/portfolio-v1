@@ -1,5 +1,9 @@
 <div class="container">
     <span class="date">11:35 am</span>
-    <div class="icon"><ng-icon name="bootstrapSunFill"/></div>
+    <!-- dark mode button start -->
+    <div class="icon" (click)="toggleDarkMode()">
+      <ng-icon *ngIf="darkModeService.isDarkMode" name="bootstrapSunFill"/>
+      <ng-icon *ngIf="!darkModeService.isDarkMode" name="bootstrapMoonFill"/>
+    </div>
     <div class="icon"><ng-icon name="bootstrapEnvelopeFill"/></div>
 </div>
