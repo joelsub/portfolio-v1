@@ -63,6 +63,10 @@ body{
 body::-webkit-scrollbar {
   display: none !important;
 }
+::-webkit-scrollbar {
+  display: none !important;
+}
+
 
 /* Hide scrollbar for IE, Edge and Firefox */
 body {
