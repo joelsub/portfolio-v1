@@ -21,6 +21,8 @@
         gap: .1rem;
         font-size: 14px;
         font-weight: 300;
+        transform: translateX(-5px);
+        width: fit-content;
         cursor: pointer;
         ng-icon{
             transform: translateY(1px);
